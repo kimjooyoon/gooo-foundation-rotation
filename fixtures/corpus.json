@@ -1,0 +1,22 @@
+{
+  "schema": "gooo/foundation-authorization/corpus/v1",
+  "cases": [
+    "normal-foundation-signed.json",
+    "normal-closed-request.json",
+    "normal-regression-corpus.json",
+    "normal-rotation.json",
+    "unknown-issuer-unavailable.json",
+    "unknown-missing-attestation.json",
+    "unknown-missing-chain.json",
+    "unknown-live-issuer.json",
+    "refuted-scope-mismatch.json",
+    "refuted-replay.json",
+    "refuted-revoked-key.json",
+    "refuted-self-authorization.json"
+  ],
+  "minimum_indicator_counts": {
+    "NORMAL": 3,
+    "UNKNOWN": 3,
+    "REFUTED": 3
+  }
+}

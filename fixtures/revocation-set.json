@@ -1,0 +1,13 @@
+{
+  "schema": "gooo/foundation-authorization/revocation-set/v1",
+  "keys": [
+    {
+      "key_id": "revoked-foundation-issuer",
+      "issuer_identity": "external://revoked-reviewer/v1",
+      "revoked_at": 1798743600,
+      "reason": "fixture key is revoked for regression coverage"
+    }
+  ],
+  "receipt_digests": [],
+  "nonces": []
+}
