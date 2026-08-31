@@ -1,0 +1,23 @@
+graph foundation-authorization version=0.1.0
+states CLOSED UNKNOWN REFUTED precedence=REFUTED>UNKNOWN>CLOSED
+axis FOUNDATION meaning=external-trust-anchor
+axis COHERENCE meaning=prior-receipt-chain-and-policy
+axis REGRESSION meaning=replay-and-refutation-corpus
+cell 01 axis=FOUNDATION signal=issuer_unavailable state=UNKNOWN
+cell 02 axis=FOUNDATION signal=external_attestation_missing state=UNKNOWN
+cell 03 axis=FOUNDATION signal=signature_invalid state=REFUTED
+cell 04 axis=FOUNDATION signal=trusted_anchor_satisfied state=CLOSED
+cell 05 axis=COHERENCE signal=generation_gap state=REFUTED
+cell 06 axis=COHERENCE signal=prior_receipt_mismatch state=REFUTED
+cell 07 axis=COHERENCE signal=scope_or_head_mismatch state=REFUTED
+cell 08 axis=COHERENCE signal=sequential_rotation_satisfied state=CLOSED
+cell 09 axis=REGRESSION signal=replay_detected state=REFUTED
+cell 10 axis=REGRESSION signal=revoked_key state=REFUTED
+cell 11 axis=REGRESSION signal=self_authorized_candidate state=REFUTED
+cell 12 axis=REGRESSION signal=corpus_satisfied state=CLOSED
+transition candidate->unsigned-receipt operation=COLLECT_EXTERNAL_ATTESTATION
+transition unsigned-receipt->signed-receipt operation=VERIFY_EXTERNAL_ATTESTATION
+transition signed-receipt->rotation operation=ROTATE_EXACT_TUPLE
+transition rotation->replay-rejection operation=REJECT_REPLAY
+transition rotation->revocation-rejection operation=REJECT_REVOKED_KEY
+transition candidate->self-approval-rejection operation=REJECT_SELF_AUTHORIZATION
