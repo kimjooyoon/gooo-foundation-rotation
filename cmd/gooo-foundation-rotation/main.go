@@ -168,7 +168,7 @@ func loadAuthority(graphPath, trustPath string) (protocol.SemanticGraph, protoco
 
 func checkExpected(c protocol.ConformanceCase, result protocol.VerificationResult) error {
 	if result.Decision != c.Expected.Decision {
-		return fmt.Errorf("decision=%s expected=%s", result.Decision, c.Expected.Decision)
+		return fmt.Errorf("decision=%s expected=%s axes=%+v refutations=%v", result.Decision, c.Expected.Decision, result.AxisResults, result.Refutations)
 	}
 	want := map[protocol.Axis]protocol.State{
 		protocol.Foundation: c.Expected.Foundation,
@@ -177,7 +177,7 @@ func checkExpected(c protocol.ConformanceCase, result protocol.VerificationResul
 	}
 	for _, axis := range result.AxisResults {
 		if axis.State != want[axis.Axis] {
-			return fmt.Errorf("%s=%s expected=%s", axis.Axis, axis.State, want[axis.Axis])
+			return fmt.Errorf("%s=%s expected=%s signals=%v refutations=%v", axis.Axis, axis.State, want[axis.Axis], axis.Signals, result.Refutations)
 		}
 	}
 	return nil
