@@ -110,21 +110,21 @@ jq -S -n \
 cat > "${evidence}/human-report.md" <<EOF
 # gooo-foundation-rotation CI human report
 
-- decision: `CLOSED` for verifier/protocol scope only
-- live issuer: `UNKNOWN`
-- meta-ontology-go PR #619 integration: `UNKNOWN`
-- precedence: `REFUTED > UNKNOWN > CLOSED`
-- denominator: cells `12`, cases `12`
-- proof choices: FOUNDATION `$(jq '.proof_choices.FOUNDATION' "${index}")`, COHERENCE `$(jq '.proof_choices.COHERENCE' "${index}")`, REGRESSION `$(jq '.proof_choices.REGRESSION' "${index}")`
-- indicators: NORMAL `$(jq '.indicators.NORMAL' "${index}")`, UNKNOWN `$(jq '.indicators.UNKNOWN' "${index}")`, REFUTED `$(jq '.indicators.REFUTED' "${index}")`
-- receipts: `$(jq '.receipts' "${index}")`; rotations: `$(jq '.rotations' "${index}")`; replays: `$(jq '.replays' "${index}")`; revocations: `$(jq '.revocations' "${index}")`
-- tests: total `${tests_total}`, executed `${tests_executed}`, reused `${tests_reused}`, failed `${tests_failed}`, unknown `${tests_unknown}`
-- compile/build/test/conformance wall_ms: `${compile_wall_ms}` / `${build_wall_ms}` / `${test_wall_ms}` / `${conformance_wall_ms}`
-- peak_rss_kib: `${peak_rss_kib}`
-- inventory: Go files/physical lines `${go_files}/${go_lines}`, Gooo files/physical lines `${gooo_files}/${gooo_lines}`, files excluding root README `${regular_files}`, dirs `${directories}`
-- outputs/files/bytes: `${outputs}` / `${bytes}`
-- authority writes/PRs/merges/local-tests/cross-project-gates: `0/0/0/0/0`
-- bootstrap correction count: `1`; future repository-bootstrap capability gap retained
+- decision: CLOSED for verifier/protocol scope only
+- live issuer: UNKNOWN
+- meta-ontology-go PR #619 integration: UNKNOWN
+- precedence: REFUTED > UNKNOWN > CLOSED
+- denominator: cells 12, cases 12
+- proof choices: FOUNDATION $(jq '.proof_choices.FOUNDATION' "${index}"), COHERENCE $(jq '.proof_choices.COHERENCE' "${index}"), REGRESSION $(jq '.proof_choices.REGRESSION' "${index}")
+- indicators: NORMAL $(jq '.indicators.NORMAL' "${index}"), UNKNOWN $(jq '.indicators.UNKNOWN' "${index}"), REFUTED $(jq '.indicators.REFUTED' "${index}")
+- receipts: $(jq '.receipts' "${index}"); rotations: $(jq '.rotations' "${index}"); replays: $(jq '.replays' "${index}"); revocations: $(jq '.revocations' "${index}")
+- tests: total ${tests_total}, executed ${tests_executed}, reused ${tests_reused}, failed ${tests_failed}, unknown ${tests_unknown}
+- compile/build/test/conformance wall_ms: ${compile_wall_ms} / ${build_wall_ms} / ${test_wall_ms} / ${conformance_wall_ms}
+- peak_rss_kib: ${peak_rss_kib}
+- inventory: Go files/physical lines ${go_files}/${go_lines}, Gooo files/physical lines ${gooo_files}/${gooo_lines}, files excluding root README ${regular_files}, dirs ${directories}
+- outputs/files/bytes: ${outputs} / ${bytes}
+- authority writes/PRs/merges/local-tests/cross-project-gates: 0/0/0/0/0
+- bootstrap correction count: 1; future repository-bootstrap capability gap retained
 
 The regression corpus includes known REFUTED cases. Those cases are evidence
 that the guard rejects replay, mismatch, revocation, and self-authorization;
