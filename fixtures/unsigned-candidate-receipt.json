@@ -1,0 +1,20 @@
+{
+  "schema": "gooo/foundation-authorization/receipt/v1",
+  "receipt_id": "receipt-619-generation-1-unsigned",
+  "request_id": "meta-ontology-go-pr-619-foundation-rotation",
+  "tuple": {
+    "base_sha": "ac3a56b933d9a9b934fe26709485dc2f36edd916",
+    "head_sha": "90f5fdf2198a7da5cde405f9f675cc62975b9226",
+    "pull_request": 619,
+    "protected_scope": "meta-ontology-go:protected-kernel",
+    "actor_identity": "github:kimjooyoon",
+    "issuer_identity": "external://foundation-reviewer/v1",
+    "nonce": "nonce-619-generation-1",
+    "issued_at": 1798740000,
+    "expires_at": 1798826400,
+    "generation": 1,
+    "prior_receipt_digest": "",
+    "decision": "AUTHORIZE"
+  },
+  "issuer_key_id": "fixture-foundation-issuer"
+}

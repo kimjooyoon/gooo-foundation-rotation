@@ -1,0 +1,30 @@
+name: Foundation authorization conformance
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  conformance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Go 1.27
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.27.x'
+          cache: false
+      - name: Run authoritative conformance
+        run: bash scripts/ci-conformance.sh
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: foundation-authorization-evidence-${{ github.run_id }}
+          path: ${{ runner.temp }}/gooo-foundation-rotation-${{ github.run_id }}/evidence
+          if-no-files-found: error

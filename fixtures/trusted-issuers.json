@@ -1,0 +1,11 @@
+{
+  "schema": "gooo/foundation-authorization/trust-store/v1",
+  "issuers": [
+    {
+      "key_id": "fixture-foundation-issuer",
+      "issuer_identity": "external://foundation-reviewer/v1",
+      "public_key": "A6EHv/POEL4dcN0Y50vAmWfk1jCbpQ1fHdyGZBJVMbg",
+      "anchor": "deterministic-public-fixture-only"
+    }
+  ]
+}
