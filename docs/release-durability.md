@@ -31,7 +31,23 @@ recorded as failed after the exact checks because its final summary formatter
 indexed the already-extracted asset array as `.assets[]`. That tag, release,
 and assets are preserved unchanged and classified as `DURABLE_RELEASE_WITH_FAILED_REPORT_STEP`.
 
-The summary formatter is corrected in the next PR. Since `v0.1.1` already
-exists, the next unused version `v0.1.2` will be the first release whose
-publish-and-verify Actions run is fully green. Live issuer and
+The summary formatter was corrected in the next PR. Since `v0.1.1` already
+existed, the next unused version `v0.1.2` was issued without modifying the
+older tag or release:
+
+```text
+v0.1.2
+release_id: 380045288
+release_api_immutable: true
+publish_and_verify_run: 33438395905
+tag_ref_object_type: tag
+annotated_tag_object: cc311eb5b14f54b5e467f9402c6f7a32e9b5b3dc
+tag_target: 5534a6814fdd9c8c6ddd957d5c26fd5c15258e02
+asset_1: 538516119 gooo-foundation-rotation-evidence-v0.1.2.tar.gz 4767 sha256:d259722c20cb3e525575d4bfb1488424ab4d23eed964fe68334345711635fe6d
+asset_2: 538516120 gooo-foundation-rotation-linux-amd64 4604245 sha256:82bd491f106abbe729242bcb0bb8b5a47d8dd5d9ceaa35be73722e4fc90d6b36
+verification_artifact_checks: release_immutable annotated_tag asset_digests_verified exact_asset_count
+```
+
+The publish-and-verify run completed successfully, and its durable-release
+verification artifact records all four checks as true. Live issuer and
 `meta-ontology-go` PR #619 integration remain `UNKNOWN`.
