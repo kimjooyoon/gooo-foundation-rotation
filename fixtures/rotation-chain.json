@@ -57,7 +57,7 @@
         "type": "deterministic-public-fixture",
         "issuer": "external://foundation-reviewer/v1",
         "subject": "public-fixture-foundation-reviewer",
-        "payload_digest": "sha256:e713ed6b8c47ebd058a9c0e3ab2791afa2dafa95eb95dcdbde343425237d7c0d",
+        "payload_digest": "sha256:3e41509f8eb3adfbdb4422fd9bdabfef1e9d355b68cd9b656713544b98f418ca",
         "transparency_log": "fixture-only-no-live-log",
         "environment": "fixture-external-authority"
       }
