@@ -105,7 +105,7 @@ jq -S -n \
   --argjson outputs "${outputs}" \
   --argjson bytes "${bytes}" \
   --slurpfile index "${index}" \
-  '{schema:$schema,ci_run_id:$run_id,scope:{verifier_protocol:"CLOSED",live_issuer:"UNKNOWN",meta_ontology_go_pr_619_integration:"UNKNOWN"},precedence:["REFUTED","UNKNOWN","CLOSED"],denominator:{cells:12,cases:12,proof_choices:$index[0].proof_choices,indicators:$index[0].indicators},corpus:{states:$index[0].states,receipts:$index[0].receipts,rotations:$index[0].rotations,replays:$index[0].replays,revocations:$index[0].revocations},inventory:{go_files:$go_files,go_lines:$go_lines,gooo_files:$gooo_files,gooo_lines:$gooo_lines,regular_files_root_readme_excluded:$regular_files,directories:$directories},outputs:{files:$outputs,bytes:$bytes},timing:{compile_wall_ms:$compile_wall_ms,build_wall_ms:$build_wall_ms,test_wall_ms:$test_wall_ms,conformance_wall_ms:$conformance_wall_ms,peak_rss_kib:$peak_rss_kib},tests:{total:$tests_total,executed:$tests_executed,reused:$tests_reused,failed:$tests_failed,unknown:$tests_unknown,skipped:$tests_skipped},authority:{repository_writes:0,pull_request_creations:0,merge_operations:0,local_test_executions:0,cross_project_required_gates:0},bootstrap:{mode:"direct-main",workflow_present_at_bootstrap:false,correction_count:1}}' > "${evidence}/ci-report.json"
+  '{schema:$schema,ci_run_id:$run_id,scope:{verifier_protocol:"CLOSED",live_issuer:"UNKNOWN",meta_ontology_go_pr_619_integration:"UNKNOWN"},precedence:["REFUTED","UNKNOWN","CLOSED"],denominator:{cells:12,cases:12,proof_choices:$index[0].proof_choices,indicators:$index[0].indicators},corpus:{states:$index[0].states,receipts:$index[0].receipts,rotations:$index[0].rotations,replays:$index[0].replays,revocations:$index[0].revocations},inventory:{go_files:$go_files,go_lines:$go_lines,gooo_files:$gooo_files,gooo_lines:$gooo_lines,regular_files_root_readme_excluded:$regular_files,directories:$directories},outputs:{files:$outputs,bytes:$bytes},timing:{compile_wall_ms:$compile_wall_ms,build_wall_ms:$build_wall_ms,test_wall_ms:$test_wall_ms,conformance_wall_ms:$conformance_wall_ms,peak_rss_kib:$peak_rss_kib},tests:{total:$tests_total,executed:$tests_executed,reused:$tests_reused,failed:$tests_failed,unknown:$tests_unknown,skipped:$tests_skipped},authority:{repository_writes:0,pull_request_creations:0,merge_operations:0,local_test_executions:0,cross_project_required_gates:0},bootstrap:{mode:"direct-main",workflow_present_at_bootstrap:false,direct_main_commits:2,post_ci_bootstrap_direct_main:0,correction_count:1}}' > "${evidence}/ci-report.json"
 
 cat > "${evidence}/human-report.md" <<EOF
 # gooo-foundation-rotation CI human report
@@ -125,6 +125,7 @@ cat > "${evidence}/human-report.md" <<EOF
 - outputs/files/bytes: ${outputs} / ${bytes}
 - authority writes/PRs/merges/local-tests/cross-project-gates: 0/0/0/0/0
 - bootstrap correction count: 1; future repository-bootstrap capability gap retained
+- bootstrap direct-main commits: 2; post-CI-bootstrap direct-main commits: 0
 
 The regression corpus includes known REFUTED cases. Those cases are evidence
 that the guard rejects replay, mismatch, revocation, and self-authorization;
