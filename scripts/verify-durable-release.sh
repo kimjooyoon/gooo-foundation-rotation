@@ -42,7 +42,7 @@ if [[ -n "${GITHUB_STEP_SUMMARY:-}" ]]; then
     echo "decision=CLOSED"
     echo "release_immutable=true"
     echo "tag=${tag} annotated_target=${expected_commit}"
-    jq -r '.assets[] | "asset_id=\(.id) name=\(.name) size=\(.size) digest=\(.digest)"' <<<"${assets}"
+    jq -r '.[] | "asset_id=\(.id) name=\(.name) size=\(.size) digest=\(.digest)"' <<<"${assets}"
   } >> "${GITHUB_STEP_SUMMARY}"
 fi
 echo "durable release verification passed: ${tag} release_id=${release_id}"
