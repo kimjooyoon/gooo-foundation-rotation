@@ -1,0 +1,30 @@
+name: CI bootstrap authority
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Go 1.27
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.27.x'
+          cache: false
+      - name: Verify bootstrap authority
+        run: |
+          test -f go.mod
+          go version
+          if test -x scripts/ci-conformance.sh; then
+            bash scripts/ci-conformance.sh
+          else
+            echo 'bootstrap-only: functional conformance workflow not present yet'
+          fi
