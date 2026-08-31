@@ -25,13 +25,37 @@ jobs:
         run: |
           bash scripts/ci-conformance.sh
           tar -czf gooo-foundation-rotation-evidence-${GITHUB_REF_NAME}.tar.gz -C "${RUNNER_TEMP}/gooo-foundation-rotation-${GITHUB_RUN_ID}" evidence
-      - name: Publish immutable release
-        uses: softprops/action-gh-release@v2
+      - name: Publish draft and exact assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -Eeuo pipefail
+          release_json="$(gh api "repos/${GITHUB_REPOSITORY}/releases" -X POST \
+            -f tag_name="${GITHUB_REF_NAME}" \
+            -f target_commitish="$(git rev-parse HEAD)" \
+            -f name="gooo-foundation-rotation ${GITHUB_REF_NAME}" \
+            -f body='Immutable verifier/protocol release. Live issuer and meta-ontology-go #619 integration remain UNKNOWN.' \
+            -F draft=true -F prerelease=false)"
+          release_id="$(jq -r '.id' <<<"${release_json}")"
+          test "${release_id}" -gt 0
+          gh release upload "${GITHUB_REF_NAME}" \
+            gooo-foundation-rotation-linux-amd64 \
+            gooo-foundation-rotation-evidence-${GITHUB_REF_NAME}.tar.gz \
+            --repo "${GITHUB_REPOSITORY}"
+          gh api "repos/${GITHUB_REPOSITORY}/releases/${release_id}" -X PATCH -F draft=false >/dev/null
+      - name: Verify durable release fail-closed
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_REPOSITORY: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_COMMIT: ${{ github.sha }}
+          RELEASE_ASSET_BINARY: gooo-foundation-rotation-linux-amd64
+          RELEASE_ASSET_EVIDENCE: gooo-foundation-rotation-evidence-${{ github.ref_name }}.tar.gz
+        run: bash scripts/verify-durable-release.sh
+      - name: Upload durable release verification
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          tag_name: ${{ github.ref_name }}
-          name: gooo-foundation-rotation ${{ github.ref_name }}
-          body: |
-            Immutable verifier/protocol release. Live issuer and meta-ontology-go #619 integration remain UNKNOWN.
-          files: |
-            gooo-foundation-rotation-linux-amd64
-            gooo-foundation-rotation-evidence-${{ github.ref_name }}.tar.gz
+          name: durable-release-verification-${{ github.run_id }}
+          path: durable-release-verification.json
+          if-no-files-found: error
